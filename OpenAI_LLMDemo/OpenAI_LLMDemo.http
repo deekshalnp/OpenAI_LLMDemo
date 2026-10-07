@@ -1,0 +1,76 @@
+@baseUrl = https://localhost:7260
+
+### 1. Ask - text answer
+POST {{baseUrl}}/api/ai/ask
+Content-Type: application/json
+
+{
+  "question": "Explain dependency injection in .NET"
+}
+
+### 2. Ask - off-topic question (the prompt should refuse it)
+POST {{baseUrl}}/api/ai/ask
+Content-Type: application/json
+
+{
+  "question": "What is the best recipe for biryani?"
+}
+
+### 3. Explain - structured JSON answer
+POST {{baseUrl}}/api/ai/explain
+Content-Type: application/json
+
+{
+  "question": "What is async/await in C#?"
+}
+
+### 4. Tools - weather in a city
+POST {{baseUrl}}/api/ai/ask-with-tools
+Content-Type: application/json
+
+{
+  "question": "What's the weather in Bengaluru right now?"
+}
+
+### 5. Tools - time in a city
+POST {{baseUrl}}/api/ai/ask-with-tools
+Content-Type: application/json
+
+{
+  "question": "What time is it in London?"
+}
+
+### 6. RAG - see the documents
+GET {{baseUrl}}/api/rag/documents
+
+### 7. RAG step 1 - Embedding (text -> numbers)
+POST {{baseUrl}}/api/rag/embed
+Content-Type: application/json
+
+{
+  "text": "The clinic is closed on Sunday"
+}
+
+### 8. RAG step 2 - Vector search (no exact words match, but the meaning does)
+POST {{baseUrl}}/api/rag/search
+Content-Type: application/json
+
+{
+  "question": "Which doctor should I see for my heart?"
+}
+
+### 9. RAG step 3 - Ask (search + AI answer)
+POST {{baseUrl}}/api/rag/ask
+Content-Type: application/json
+
+{
+  "question": "How much do I pay if I cancel my appointment late?"
+}
+
+### 10. RAG - question not in the documents (should say "I don't know")
+POST {{baseUrl}}/api/rag/ask
+Content-Type: application/json
+
+{
+  "question": "Does the clinic do MRI scans?"
+}
